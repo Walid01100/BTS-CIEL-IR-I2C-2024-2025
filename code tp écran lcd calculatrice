@@ -1,0 +1,89 @@
+#include <Wire.h>
+#include <LiquidCrystal_I2C.h>
+float N;
+float F;
+float S;
+char OPE;
+
+// Création d'un objet LCD avec l'adresse I2C de l'écran
+LiquidCrystal_I2C lcd(0x27, 16, 2);
+
+void setup()
+  
+{
+lcd.begin(16,2);
+lcd.init();
+lcd.backlight();
+}
+
+void loop()
+{  
+  rentrerN();
+  rentrerF();
+  rentrerOPE();
+  calcul();
+  lcd.print(S);
+}
+
+
+
+void rentrerN()
+{
+  float N1; //le nombre rentrer dans le moniteur série
+  int buff = Serial.available(); //buffer
+  Serial.print("Rentrer le premier nombre : ");
+  if(buff > 0)
+  {
+    N1 = Serial.read(); //lire le nombre rentrer
+    N = N1;
+  }
+}
+
+
+
+void rentrerF()
+{
+  float F1; //le nombre rentrer dans le moniteur série
+  int buff = Serial.available(); //buffer
+  Serial.print("Rentrer le deuxième nombre : ");
+  if(buff > 0)
+  {
+    F1 = Serial.read(); //lire le nombre rentrer
+    F = F1;
+  }
+}
+
+
+
+void rentrerOPE()
+{
+  char OPE1; //l'opération rentrer dans le moniteur série
+  int buff = Serial.available(); //buffer
+  Serial.print("Rentrer l'opération désirée (+,-,*,/) : ");
+  if(buff > 0)
+  {
+    OPE1 = Serial.read(); //lire l'opération rentrer
+    OPE = OPE1;
+  }
+}
+
+
+
+void calcul()
+{
+  if (OPE = '+')
+  {
+    S = N+F;
+  }
+  if (OPE = '-')
+  {
+    S = N-F;
+  }
+  if (OPE = '/')
+  {
+    S = N/F;
+  }
+  if (OPE = '*')
+  {
+    S = N*F;
+  }
